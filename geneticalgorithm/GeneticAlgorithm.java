@@ -5,10 +5,10 @@ package geneticalgorithm;
  */
 public class GeneticAlgorithm {
 
-    private static final double crossoverRate = 0.5;
-    private static final double mutationRate = 0.015;
-    private static final int tournamentSize = 2;
-    private static final boolean elitism = true;
+    private static final double CROSSOVER_RATE = 0.5;
+    private static final double MUTATION_RATE = 0.015;
+    private static final int TOURNAMENT_SIZE = 2;
+    private static final boolean ELITISM = true;
 
 
     public static Population evolvePopulation(Population population) {
@@ -24,19 +24,18 @@ public class GeneticAlgorithm {
             mutate(newPopulation.getIndividual(i));
         }
 
-        if (elitism) {
+        if (ELITISM) {
             Individual elite = new Individual(population.getFittest());
             int worstIndex = newPopulation.getLeastFittestIndex();
             newPopulation.saveIndividual(worstIndex, elite);
         }
-
         return newPopulation;
     }
 
     private static Individual crossover(Individual individualOne, Individual individualTwo) {
         Individual child = new Individual();
         for (int i = 0; i < individualOne.size(); i++) {
-            if (Math.random() <= crossoverRate) {
+            if (Math.random() <= CROSSOVER_RATE) {
                 child.setGene(i, individualOne.getGene(i));
             } else {
                 child.setGene(i, individualTwo.getGene(i));
@@ -47,7 +46,7 @@ public class GeneticAlgorithm {
 
     private static void mutate(Individual individual) {
         for (int i = 0; i < individual.size(); i++) {
-            if (Math.random() <= mutationRate) {
+            if (Math.random() <= MUTATION_RATE) {
                 if (individual.getGene(i) == 1) {
                     byte gene = 0;
                     individual.setGene(i, gene);
@@ -60,9 +59,9 @@ public class GeneticAlgorithm {
     }
 
     private static Individual tournamentSelection(Population pop) {
-        Population tournament = new Population(tournamentSize);
+        Population tournament = new Population(TOURNAMENT_SIZE);
 
-        for (int i = 0; i < tournamentSize; i++) {
+        for (int i = 0; i < TOURNAMENT_SIZE; i++) {
             int randomId = (int) (Math.random() * pop.size());
             tournament.saveIndividual(i, pop.getIndividual(randomId));
         }

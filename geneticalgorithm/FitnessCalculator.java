@@ -30,20 +30,27 @@ public class FitnessCalculator {
         fileInput.parseInput("data1.txt");
         int populationFitness = 0;
         for (int i = 0; i < population.size(); i++) {
-            Rules rule = new Rules(population.individuals[i]);
-            for (int j = 0; j < rule.rules.length; j++) {
-                // for (int x = 0; x < rule.rules[j].length; x++) {
-                for (int x = 0; x < fileInput.condition.size(); x++) {
-                    if (Arrays.equals(rule.rules[j], fileInput.condition.get(x))) {
-                        if (rule.answers[j][0] == fileInput.answers.get(j)[0]) {
-                            populationFitness++;
-                            break;
-                        }
+            populationFitness += calculateIndividualRuleFitness(population.getIndividual(i));
+        }
+        return populationFitness / population.size();
+    }
+
+    static int calculateIndividualRuleFitness(Individual individual) {
+        FileInputParser fileInput = new FileInputParser();
+        fileInput.parseInput("data1.txt");
+        int individualFitness = 0;
+
+        Rules rule = new Rules(individual);
+        for (int j = 0; j < rule.rules.length; j++) {
+            for (int x = 0; x < fileInput.condition.size(); x++) {
+                if (Arrays.equals(rule.rules[j], fileInput.condition.get(x))) {
+                    if (rule.answers[j][0] == fileInput.answers.get(x)[0]) {
+                        individualFitness++;
+                        break;
                     }
-                    // }
                 }
             }
         }
-        return populationFitness / population.size();
+        return individualFitness;
     }
 }

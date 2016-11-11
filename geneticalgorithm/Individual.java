@@ -38,7 +38,7 @@ public class Individual {
     }
 
     public int getFitness() {
-        return FitnessCalculator.calculateIndividualFitness(this);
+        return FitnessCalculator.calculateIndividualRuleFitness(this);
     }
 
     public void setFitness(int fitness) {
