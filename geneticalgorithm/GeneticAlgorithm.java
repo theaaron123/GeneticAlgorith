@@ -6,7 +6,8 @@ package geneticalgorithm;
 public class GeneticAlgorithm {
 
     private static final double CROSSOVER_RATE = 0.5;
-    private static final double MUTATION_RATE = 0.015;
+    private static final double MUTATION_RATE = 0.15;
+    private static final double WILDCARD_RATE = 0.3;
     private static final int TOURNAMENT_SIZE = 2;
     private static final boolean ELITISM = true;
 
@@ -47,12 +48,17 @@ public class GeneticAlgorithm {
     private static void mutate(Individual individual) {
         for (int i = 0; i < individual.size(); i++) {
             if (Math.random() <= MUTATION_RATE) {
-                if (individual.getGene(i) == 1) {
-                    byte gene = 0;
+                if (Math.random() <= WILDCARD_RATE) {
+                    byte gene = 2;
                     individual.setGene(i, gene);
                 } else {
-                    byte gene = 1;
-                    individual.setGene(i, gene);
+                    if (individual.getGene(i) == 1) {
+                        byte gene = 0;
+                        individual.setGene(i, gene);
+                    } else {
+                        byte gene = 1;
+                        individual.setGene(i, gene);
+                    }
                 }
             }
         }

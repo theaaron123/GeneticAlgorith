@@ -38,11 +38,11 @@ public class FileInputParser {
                     String line = sc.nextLine();
                     String[] parts = line.split(" ");
                     String[] conds = parts[0].split("(?!^)");
-                    byte conditon[] = new byte[5];
+                    byte condition[] = new byte[6];
                     for (int i = 0; i < conds.length; i++) {
-                        conditon[i] = Byte.parseByte(conds[i]);
+                        condition[i] = Byte.parseByte(conds[i]);
                     }
-                    condition.add(conditon);
+                    this.condition.add(condition);
                     byte[] answer = new byte[1];
                     answer[0] = Byte.parseByte(parts[1]);
                     answers.add(answer);
