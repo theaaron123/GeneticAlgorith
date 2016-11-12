@@ -6,8 +6,8 @@ package geneticalgorithm;
 public class GeneticAlgorithm {
 
     private static final double CROSSOVER_RATE = 0.5;
-    private static final double MUTATION_RATE = 0.15;
-    private static final double WILDCARD_RATE = 0.3;
+    private static final double MUTATION_RATE = 0.015;
+    private static final double WILDCARD_RATE = 0.03;
     private static final int TOURNAMENT_SIZE = 2;
     private static final boolean ELITISM = true;
 

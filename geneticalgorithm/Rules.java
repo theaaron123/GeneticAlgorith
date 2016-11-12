@@ -10,9 +10,13 @@ package geneticalgorithm;
  */
 public class Rules {
 
+
+    private static final int RULE_LENGTH = 5;
+    private static final int ANSWER_LENGTH = 1;
+
     Individual individual = new Individual();
-    byte[][] rules = new byte[individual.size() / 6][];
-    byte[][] answers = new byte[individual.size() / 6][];
+    byte[][] rules = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
+    byte[][] answers = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
 
     public Rules(Individual individual) {
         this.individual = individual;
@@ -28,14 +32,14 @@ public class Rules {
     }
 
     private void splitGenes() {
-        for (int i = 0; i < individual.size() / 6; i++) {
-            byte[] rule = new byte[5];
-            for (int j = 0; j < 6; j++) {
-                if (j < 4) {
+        for (int i = 0; i < individual.size() / (RULE_LENGTH + ANSWER_LENGTH); i++) {
+            byte[] rule = new byte[RULE_LENGTH];
+            for (int j = 0; j < (RULE_LENGTH + ANSWER_LENGTH); j++) {
+                if (j < (RULE_LENGTH - ANSWER_LENGTH)) {
                     rule[j] = individual.getGene(j);
 
                 } else {
-                    byte[] answer = new byte[1];
+                    byte[] answer = new byte[ANSWER_LENGTH];
                     answer[0] = individual.getGene(j);
                     answers[i] = answer;
                 }
