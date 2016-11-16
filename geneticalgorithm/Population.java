@@ -26,10 +26,12 @@ public class Population {
     }
 
     public Individual getFittest() {
-        Individual fittest = individuals[0];
+        Individual fittest = new Individual();
+        fittest.initialiseIndividual();
         for (int i = 0; i < individuals.length; i++) {
-            if (fittest.getFitness() <= getIndividual(i).getFitness()) {
-                fittest = getIndividual(i);
+            if (fittest.getFitness() < getIndividual(i).getFitness()) {
+                fittest.setFitness(getIndividual(i).getFitness());
+                fittest.setGenes(getIndividual(i).getGenes());
             }
         }
         return fittest;
@@ -39,7 +41,7 @@ public class Population {
         Individual individual = individuals[0];
         int worstIndex = 0;
         for (int i = 0; i < individuals.length; i++) {
-            if (individual.getFitness() <= getIndividual(i).getFitness()) {
+            if (individual.getFitness() < getIndividual(i).getFitness()) {
                 individual = getIndividual(i);
                 worstIndex = i;
             }

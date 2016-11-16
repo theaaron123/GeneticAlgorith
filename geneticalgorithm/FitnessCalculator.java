@@ -40,15 +40,12 @@ public class FitnessCalculator {
 
         Rules rule = new Rules(individual);
         for (int x = 0; x < fileInput.condition.size(); x++) {
-        for (int j = 0; j < rule.rules.length; j++) {
-            if (Arrays.equals(rule.rules[j], fileInput.condition.get(x)) | wildCardCheck(rule.rules[j], fileInput.condition.get(x))) {
+            for (int j = 0; j < rule.rules.length; j++) {
+                if (Arrays.equals(rule.rules[j], fileInput.condition.get(x)) | wildCardCheck(rule.rules[j], fileInput.condition.get(x))) {
                     if (rule.answers[j][0] == fileInput.answers.get(x)[0]) {
-                        if (rule.answers[j][0] == 2) {
-                            System.out.println("ANSWER = 2!");
-                        }
                         individualFitness++;
                     }
-                break;
+                    break;
                 }
             }
         }
@@ -57,8 +54,8 @@ public class FitnessCalculator {
 
     private static boolean wildCardCheck(byte[] rule, byte[] dataRule) {
         int matches = 0;
-        for (int i = 0; i < rule.length; i++) {
-            for (int j = 0; j < dataRule.length; j++) {
+        for (int j = 0; j < dataRule.length; j++) {
+            for (int i = 0; i < rule.length; i++) {
                 if (rule[i] == dataRule[j] || rule[i] == 2) {
                     matches++;
                 } else {
