@@ -5,7 +5,7 @@ package geneticalgorithm;
  */
 public class Individual {
 
-    static int geneLength = 60;
+    static int geneLength = 70;
     private byte[] genes = new byte[geneLength];
     private int fitness = 0;
 
@@ -20,6 +20,7 @@ public class Individual {
     public void initialiseIndividual() {
         for (int i = 0; i < size(); i++) {
             byte gene = (byte) Math.round(Math.random());
+            //if (Math.random() > 0.5) {gene = 2;}
             genes[i] = gene;
         }
     }

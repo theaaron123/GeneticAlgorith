@@ -11,7 +11,7 @@ package geneticalgorithm;
 public class Rules {
 
 
-    private static final int RULE_LENGTH = 5;
+    private static final int RULE_LENGTH = 6;
     private static final int ANSWER_LENGTH = 1;
 
     Individual individual = new Individual();

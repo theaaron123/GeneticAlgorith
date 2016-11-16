@@ -38,7 +38,7 @@ public class FileInputParser {
                     String line = sc.nextLine();
                     String[] parts = line.split(" ");
                     String[] conds = parts[0].split("(?!^)");
-                    byte condition[] = new byte[5];
+                    byte condition[] = new byte[6];
                     for (int i = 0; i < conds.length; i++) {
                         condition[i] = Byte.parseByte(conds[i]);
                     }

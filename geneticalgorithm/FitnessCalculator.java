@@ -35,17 +35,20 @@ public class FitnessCalculator {
 
     static int calculateIndividualRuleFitness(Individual individual) {
         FileInputParser fileInput = new FileInputParser();
-        fileInput.parseInput("data1.txt");
+        fileInput.parseInput("data2.txt");
         int individualFitness = 0;
 
         Rules rule = new Rules(individual);
+        for (int x = 0; x < fileInput.condition.size(); x++) {
         for (int j = 0; j < rule.rules.length; j++) {
-            for (int x = 0; x < fileInput.condition.size(); x++) {
-                if (Arrays.equals(rule.rules[j], fileInput.condition.get(x)) || wildCardCheck(rule.rules[j], fileInput.condition.get(x))) {
+            if (Arrays.equals(rule.rules[j], fileInput.condition.get(x)) | wildCardCheck(rule.rules[j], fileInput.condition.get(x))) {
                     if (rule.answers[j][0] == fileInput.answers.get(x)[0]) {
+                        if (rule.answers[j][0] == 2) {
+                            System.out.println("ANSWER = 2!");
+                        }
                         individualFitness++;
-                        break;
                     }
+                break;
                 }
             }
         }

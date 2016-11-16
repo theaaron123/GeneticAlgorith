@@ -11,7 +11,7 @@ public class Main {
 
         Population population = new Population(50);
 
-        int iterations = 50;
+        int iterations = 100;
         int currenIteration = 0;
 
         for (int i = 0; i < iterations; i++) {
