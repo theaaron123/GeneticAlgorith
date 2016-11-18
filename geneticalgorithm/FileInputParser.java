@@ -11,6 +11,8 @@ import java.util.Scanner;
  */
 public class FileInputParser {
 
+    private static final int RULE_LENGTH = 6;
+
     public List<byte[]> condition = new ArrayList<>();
     public List<byte[]> answers = new ArrayList<>();
 
@@ -38,7 +40,7 @@ public class FileInputParser {
                     String line = sc.nextLine();
                     String[] parts = line.split(" ");
                     String[] conds = parts[0].split("(?!^)");
-                    byte condition[] = new byte[6];
+                    byte condition[] = new byte[RULE_LENGTH];
                     for (int i = 0; i < conds.length; i++) {
                         condition[i] = Byte.parseByte(conds[i]);
                     }

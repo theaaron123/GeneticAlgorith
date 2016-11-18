@@ -7,8 +7,7 @@ public class GeneticAlgorithm {
 
     private static final double CROSSOVER_RATE = 0.85;
     private static final double MUTATION_RATE = 0.015;
-    private static final double WILDCARD_RATE = 0.35;
-    private static final int TOURNAMENT_SIZE = 2;
+    private static final int TOURNAMENT_SIZE = 6;
     private static final boolean ELITISM = true;
 
     public static Population evolvePopulation(Population population) {
@@ -17,7 +16,7 @@ public class GeneticAlgorithm {
         for (int i = 0; i < population.size(); i++) {
             Individual individualOne = tournamentSelection(population);
             Individual individualTwo = tournamentSelection(population);
-            Individual newIndividual = crossover(individualOne, individualTwo);
+            Individual newIndividual = crossoverSinglePoint(individualOne, individualTwo);
             newPopulation.saveIndividual(i, newIndividual);
         }
         for (int i = 0; i < newPopulation.size(); i++) {
@@ -44,20 +43,60 @@ public class GeneticAlgorithm {
         return child;
     }
 
+    private static Individual crossoverSinglePoint(Individual individualOne, Individual individualTwo) {
+        Individual child = new Individual();
+        int crossOverPoint = (int) (Math.random() * individualOne.size());
+        for (int i = 0; i < individualOne.size(); i++) {
+            if (i <= crossOverPoint) {
+                child.setGene(i, individualOne.getGene(i));
+            } else {
+                child.setGene(i, individualTwo.getGene(i));
+            }
+        }
+        return child;
+    }
+
     private static void mutate(Individual individual) {
         for (int i = 0; i < individual.size(); i++) {
             if (Math.random() <= MUTATION_RATE) {
-                if (Math.random() <= WILDCARD_RATE && i % 6 != 0) {
-                    byte gene = 2;
+                if (i % 7 != 0) {
+                    switch (individual.getGene(i)) {
+                        case 1:
+                            if (Math.random() >= 0.5) {
+                                byte gene = 2;
+                                individual.setGene(i, gene);
+                            } else {
+                                byte gene = 0;
+                                individual.setGene(i, gene);
+                            }
+                            break;
+                        case 0:
+                            if (Math.random() >= 0.5) {
+                                byte gene = 2;
+                                individual.setGene(i, gene);
+                            } else {
+                                byte gene = 1;
+                                individual.setGene(i, gene);
+                            }
+                            break;
+                        case 2:
+                            if (Math.random() >= 0.5) {
+                                byte gene = 1;
+                                individual.setGene(i, gene);
+                            } else {
+                                byte gene = 0;
+                                individual.setGene(i, gene);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
+                } else if (individual.getGene(i) == 1) {
+                    byte gene = 0;
                     individual.setGene(i, gene);
                 } else {
-                    if (individual.getGene(i) == 1) {
-                        byte gene = 0;
-                        individual.setGene(i, gene);
-                    } else {
-                        byte gene = 1;
-                        individual.setGene(i, gene);
-                    }
+                    byte gene = 1;
+                    individual.setGene(i, gene);
                 }
             }
         }
