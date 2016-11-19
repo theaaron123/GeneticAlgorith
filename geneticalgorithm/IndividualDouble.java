@@ -3,44 +3,39 @@ package geneticalgorithm;
 /**
  * Created by aaron on 05/11/16.
  */
-public class Individual {
+public class IndividualDouble {
 
     static int geneLength = 35;
-    private byte[] genes = new byte[geneLength];
+    private double[][] genes = new double[geneLength][2];
     private int fitness = 0;
 
-    Individual() {
+    IndividualDouble() {
     }
 
-    Individual(Individual ind) {
+    IndividualDouble(IndividualDouble ind) {
         this.fitness = ind.fitness;
         this.genes = ind.genes;
     }
 
     public void initialiseIndividual() {
         for (int i = 0; i < size(); i++) {
-            byte gene = (byte) Math.round(Math.random());
-            if (Math.random() >= 0.96) {
-                gene = 2;
+            for (int j = 0; j < genes[i].length; j++) {
+                double gene = Math.random();
+                genes[i][j] = gene;
             }
-            genes[i] = gene;
         }
     }
 
-    public byte getGene(int index) {
+    public double[] getGene(int index) {
         return genes[index];
     }
 
-    public byte[] getGenes() {
+    public double[][] getGenes() {
         return this.genes;
     }
 
-    public void setGene(int index, byte value) {
-        genes[index] = value;
-        fitness = 0;
-    }
 
-    public void setGenes(byte[] genes) {
+    public void setGenes(double[][] genes) {
         this.genes = genes;
     }
 
@@ -49,10 +44,11 @@ public class Individual {
     }
 
     public int getFitness() {
-        return FitnessCalculator.calculateIndividualRuleFitness(this);
+        return 0;
     }
 
     public void setFitness(int fitness) {
         this.fitness = fitness;
     }
+
 }

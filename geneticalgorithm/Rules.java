@@ -14,14 +14,23 @@ public class Rules {
     private static final int ANSWER_LENGTH = 1;
 
     Individual individual = new Individual();
+    IndividualDouble individualDouble = new IndividualDouble();
     byte[][] rules = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
     byte[][] answers = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
+
+    double[][] rulesDouble = new double[10][];
+    double[][] answersDouble = new double[10][];
 
     public Rules(Individual individual) {
         this.individual = individual;
         rules = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
         answers = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
         splitGenes();
+    }
+
+    public Rules(IndividualDouble individualDouble) {
+        this.individualDouble = individualDouble;
+        splitGenesDouble();
     }
 
     public byte[][] getRules() {
@@ -49,6 +58,13 @@ public class Rules {
                 }
             }
             rules[i] = rule;
+        }
+    }
+
+    public void splitGenesDouble() {
+        int index = 0;
+        for (int i = 0; i < individualDouble.size(); i++) {
+            int len = individualDouble.getGene(i).length;
         }
     }
 }

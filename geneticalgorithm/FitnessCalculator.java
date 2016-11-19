@@ -67,4 +67,25 @@ public class FitnessCalculator {
         }
         return false;
     }
+
+    static int calculateIndividualFitnessDouble(IndividualDouble individual) {
+        FileInputParser fileInputParser = new FileInputParser();
+        fileInputParser.parseInputDouble("data3.txt");
+        int individualFitness = 0;
+
+        Rules rule = new Rules(individual);
+        for (int x = 0; x < fileInputParser.answersDouble.size(); x++) {
+            for (int j = 0; j < rule.rules.length; j++) {
+                for (int i = 0; i < rule.rulesDouble[j].length; i++) {
+                    if (rule.rulesDouble[j][i] >= fileInputParser.conditionDouble.get(x)[0] && rule.rulesDouble[j][i] <= fileInputParser.conditionDouble.get(x)[1]) {
+                        if (rule.answersDouble[j][0] == fileInputParser.answersDouble.get(x)[0]) {
+                            individualFitness++;
+                        }
+                    }
+                }
+                break;
+            }
+        }
+        return 0;
+    }
 }

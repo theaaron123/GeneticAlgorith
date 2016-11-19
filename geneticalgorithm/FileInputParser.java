@@ -16,6 +16,9 @@ public class FileInputParser {
     public List<byte[]> condition = new ArrayList<>();
     public List<byte[]> answers = new ArrayList<>();
 
+    public List<double[]> conditionDouble = new ArrayList<>();
+    public List<double[]> answersDouble = new ArrayList<>();
+
     public List<byte[]> getAnswers() {
         return answers;
     }
@@ -48,6 +51,38 @@ public class FileInputParser {
                     byte[] answer = new byte[1];
                     answer[0] = Byte.parseByte(parts[1]);
                     answers.add(answer);
+                }
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    public boolean parseInputDouble(String filePath) {
+        try {
+            File file = new File(filePath);
+            Scanner sc = new Scanner(file);
+
+            int iteration = 0;
+            while (sc.hasNextLine()) {
+                if (iteration == 0) {
+                    String line = sc.nextLine();
+                    iteration++;
+                    // Skip header
+                } else {
+
+                    String line = sc.nextLine();
+                    String[] parts = line.split(" ");
+                    double condition[] = new double[6];
+                    for (int i = 0; i < (parts.length - 1); i++) {
+                        condition[i] = Double.parseDouble(parts[i]);
+                    }
+                    this.conditionDouble.add(condition);
+                    double[] answer = new double[1];
+                    answer[0] = Double.parseDouble(parts[6]);
+                    answersDouble.add(answer);
                 }
             }
         } catch (FileNotFoundException e) {
