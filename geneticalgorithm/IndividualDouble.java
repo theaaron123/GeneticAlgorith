@@ -20,8 +20,13 @@ public class IndividualDouble {
     public void initialiseIndividual() {
         for (int i = 0; i < size(); i++) {
             for (int j = 0; j < genes[i].length; j++) {
-                double gene = Math.random();
-                genes[i][j] = gene;
+                if ((i + 1) % 7 == 0) {
+                    double gene = Math.round(Math.random());
+                    genes[i][j] = gene;
+                } else {
+                    double gene = Math.random();
+                    genes[i][j] = gene;
+                }
             }
         }
     }

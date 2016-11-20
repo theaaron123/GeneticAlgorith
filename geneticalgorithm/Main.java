@@ -11,6 +11,10 @@ public class Main {
 
         Population population = new Population(50);
 
+        IndividualDouble individualDouble = new IndividualDouble();
+        individualDouble.initialiseIndividual();
+        Rules rules = new Rules(individualDouble);
+
         int iterations = 100;
         int currenIteration = 0;
 
