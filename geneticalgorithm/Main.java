@@ -13,7 +13,8 @@ public class Main {
 
         IndividualDouble individualDouble = new IndividualDouble();
         individualDouble.initialiseIndividual();
-        Rules rules = new Rules(individualDouble);
+        FitnessCalculator fitnessCalculator = new FitnessCalculator();
+        int y = fitnessCalculator.calculateIndividualFitnessDouble(individualDouble);
 
         int iterations = 100;
         int currenIteration = 0;

@@ -56,11 +56,11 @@ public class FitnessCalculator {
         int matches = 0;
         for (int j = 0; j < dataRule.length; j++) {
             if (rule[j] == dataRule[j] || rule[j] == 2) {
-                    matches++;
-                } else {
-                    matches = 0;
-                    break;
-                }
+                matches++;
+            } else {
+                matches = 0;
+                break;
+            }
             if (matches == rule.length) {
                 return true;
             }
@@ -77,15 +77,17 @@ public class FitnessCalculator {
         for (int x = 0; x < fileInputParser.answersDouble.size(); x++) {
             for (int j = 0; j < rule.rules.length; j++) {
                 for (int i = 0; i < rule.rulesDouble[j].length; i++) {
-                    if (rule.rulesDouble[j][i] >= fileInputParser.conditionDouble.get(x)[0] && rule.rulesDouble[j][i] <= fileInputParser.conditionDouble.get(x)[1]) {
-                        if (rule.answersDouble[j][0] == fileInputParser.answersDouble.get(x)[0]) {
-                            individualFitness++;
+                    for (int k = 0; k < fileInputParser.conditionDouble.get(x).length; k++) {
+                        if (fileInputParser.conditionDouble.get(x)[k] >= rule.rulesDouble[j][i][0] && fileInputParser.conditionDouble.get(x)[k] <= rule.rulesDouble[j][i][1]) {
+                            if (rule.answersDouble[j][0][0] == fileInputParser.answersDouble.get(x)[0] && k == fileInputParser.conditionDouble.get(x).length - 1) {
+                                individualFitness++;
+                            }
+                            break;
                         }
                     }
                 }
-                break;
             }
         }
-        return 0;
+        return individualFitness;
     }
 }
