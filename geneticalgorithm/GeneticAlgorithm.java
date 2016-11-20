@@ -31,6 +31,27 @@ public class GeneticAlgorithm {
         return newPopulation;
     }
 
+    public static PopulationDouble evolvePopulation(PopulationDouble population) {
+        PopulationDouble newPopulation = new PopulationDouble(population.size());
+
+        for (int i = 0; i < population.size(); i++) {
+            IndividualDouble individualOne = tournamentSelection(population);
+            IndividualDouble individualTwo = tournamentSelection(population);
+            IndividualDouble newIndividual = crossoverSinglePoint(individualOne, individualTwo);
+            newPopulation.saveIndividual(i, newIndividual);
+        }
+        for (int i = 0; i < newPopulation.size(); i++) {
+            mutate(newPopulation.getIndividual(i));
+        }
+
+        if (ELITISM) {
+            //IndividualDouble elite = new IndividualDouble(population.getFittest());
+            // int worstIndex = newPopulation.getLeastFittestIndex();
+            // newPopulation.saveIndividual(worstIndex, elite);
+        }
+        return newPopulation;
+    }
+
     private static Individual crossover(Individual individualOne, Individual individualTwo) {
         Individual child = new Individual();
         for (int i = 0; i < individualOne.size(); i++) {
@@ -45,6 +66,19 @@ public class GeneticAlgorithm {
 
     private static Individual crossoverSinglePoint(Individual individualOne, Individual individualTwo) {
         Individual child = new Individual();
+        int crossOverPoint = (int) (Math.random() * individualOne.size());
+        for (int i = 0; i < individualOne.size(); i++) {
+            if (i <= crossOverPoint) {
+                child.setGene(i, individualOne.getGene(i));
+            } else {
+                child.setGene(i, individualTwo.getGene(i));
+            }
+        }
+        return child;
+    }
+
+    private static IndividualDouble crossoverSinglePoint(IndividualDouble individualOne, IndividualDouble individualTwo) {
+        IndividualDouble child = new IndividualDouble();
         int crossOverPoint = (int) (Math.random() * individualOne.size());
         for (int i = 0; i < individualOne.size(); i++) {
             if (i <= crossOverPoint) {
@@ -102,6 +136,20 @@ public class GeneticAlgorithm {
         }
     }
 
+    private static void mutate(IndividualDouble individual) {
+        for (int i = 0; i < individual.size(); i++) {
+            if (Math.random() <= MUTATION_RATE) {
+                if (Math.random() >= 0.5) {
+                    individual.getGene(i)[0] += Math.random();
+                    individual.getGene(i)[1] += Math.random();
+                } else {
+                    individual.getGene(i)[0] -= Math.random();
+                    individual.getGene(i)[1] -= Math.random();
+                }
+            }
+        }
+    }
+
     private static Individual tournamentSelection(Population pop) {
         Population tournament = new Population(TOURNAMENT_SIZE);
 
@@ -110,6 +158,17 @@ public class GeneticAlgorithm {
             tournament.saveIndividual(i, pop.getIndividual(randomId));
         }
         Individual fittest = tournament.getFittest();
+        return fittest;
+    }
+
+    private static IndividualDouble tournamentSelection(PopulationDouble pop) {
+        PopulationDouble tournament = new PopulationDouble(TOURNAMENT_SIZE);
+
+        for (int i = 0; i < TOURNAMENT_SIZE; i++) {
+            int randomId = (int) (Math.random() * pop.size());
+            tournament.saveIndividual(i, pop.getIndividual(randomId));
+        }
+        IndividualDouble fittest = tournament.getFittest();
         return fittest;
     }
 }

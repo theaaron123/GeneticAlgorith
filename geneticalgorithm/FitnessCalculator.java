@@ -90,4 +90,12 @@ public class FitnessCalculator {
         }
         return individualFitness;
     }
+
+    static int calculateRuleFitnessDouble(PopulationDouble population) {
+        int populationFitness = 0;
+        for (int i = 0; i < population.size(); i++) {
+            populationFitness += calculateIndividualFitnessDouble(population.getIndividual(i));
+        }
+        return populationFitness / population.size();
+    }
 }

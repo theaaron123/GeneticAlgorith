@@ -44,12 +44,16 @@ public class IndividualDouble {
         this.genes = genes;
     }
 
+    public void setGene(int index, double[] gene) {
+        this.genes[index] = gene;
+    }
+
     public int size() {
         return genes.length;
     }
 
     public int getFitness() {
-        return 0;
+        return FitnessCalculator.calculateIndividualFitnessDouble(this);
     }
 
     public void setFitness(int fitness) {
