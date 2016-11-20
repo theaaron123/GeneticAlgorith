@@ -5,7 +5,7 @@ package geneticalgorithm;
  */
 public class IndividualDouble {
 
-    static int geneLength = 35;
+    static int geneLength = 140;
     private double[][] genes = new double[geneLength][2];
     private int fitness = 0;
 

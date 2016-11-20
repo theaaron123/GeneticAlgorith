@@ -11,11 +11,6 @@ public class Main {
 
         PopulationDouble population = new PopulationDouble(5);
 
-        IndividualDouble individualDouble = new IndividualDouble();
-        individualDouble.initialiseIndividual();
-        FitnessCalculator fitnessCalculator = new FitnessCalculator();
-        int y = fitnessCalculator.calculateIndividualFitnessDouble(individualDouble);
-
         int iterations = 100;
         int currenIteration = 0;
 

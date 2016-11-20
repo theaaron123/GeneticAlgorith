@@ -18,8 +18,8 @@ public class Rules {
     byte[][] rules = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
     byte[][] answers = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
 
-    double[][][] rulesDouble = new double[10][][];
-    double[][][] answersDouble = new double[10][][];
+    double[][][] rulesDouble = new double[individualDouble.size() / 7][][];
+    double[][][] answersDouble = new double[individualDouble.size() / 7][][];
 
     public Rules(Individual individual) {
         this.individual = individual;
