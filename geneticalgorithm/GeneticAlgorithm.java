@@ -6,7 +6,7 @@ package geneticalgorithm;
 public class GeneticAlgorithm {
 
     private static final double CROSSOVER_RATE = 0.85;
-    private static final double MUTATION_RATE = 0.021;
+    private static final double MUTATION_RATE = 0.011;
     private static final int TOURNAMENT_SIZE = 4;
     private static final boolean ELITISM = true;
 
@@ -41,13 +41,13 @@ public class GeneticAlgorithm {
             newPopulation.saveIndividual(i, newIndividual);
         }
         for (int i = 0; i < newPopulation.size(); i++) {
-            mutate(newPopulation.getIndividual(i));
+            boxMutate(newPopulation.getIndividual(i));
         }
 
         if (ELITISM) {
-            //IndividualDouble elite = new IndividualDouble(population.getFittest());
-            // int worstIndex = newPopulation.getLeastFittestIndex();
-            // newPopulation.saveIndividual(worstIndex, elite);
+            IndividualDouble elite = new IndividualDouble(population.getFittest());
+            int worstIndex = newPopulation.getLeastFittestIndex();
+            newPopulation.saveIndividual(worstIndex, elite);
         }
         return newPopulation;
     }
@@ -136,15 +136,25 @@ public class GeneticAlgorithm {
         }
     }
 
+
+    private static void boxMutate(IndividualDouble individual) {
+        for (int i = 0; i < individual.size(); i++) {
+            if (Math.random() <= MUTATION_RATE) {
+                individual.getGene(i)[0] = Math.random();
+                individual.getGene(i)[1] = Math.random();
+            }
+        }
+    }
+
     private static void mutate(IndividualDouble individual) {
         for (int i = 0; i < individual.size(); i++) {
             if (Math.random() <= MUTATION_RATE) {
                 if (Math.random() >= 0.5) {
-                    individual.getGene(i)[0] += Math.random();
-                    individual.getGene(i)[1] += Math.random();
+                    individual.getGene(i)[0] += Math.random() / 10;
+                    individual.getGene(i)[1] += Math.random() / 10;
                 } else {
-                    individual.getGene(i)[0] -= Math.random();
-                    individual.getGene(i)[1] -= Math.random();
+                    individual.getGene(i)[0] -= Math.random() / 10;
+                    individual.getGene(i)[1] -= Math.random() / 10;
                 }
             }
         }

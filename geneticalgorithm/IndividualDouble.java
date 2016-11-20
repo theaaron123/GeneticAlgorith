@@ -7,7 +7,7 @@ public class IndividualDouble {
 
     static int geneLength = 140;
     private double[][] genes = new double[geneLength][2];
-    private int fitness = 0;
+    protected int fitness = 0;
 
     IndividualDouble() {
     }

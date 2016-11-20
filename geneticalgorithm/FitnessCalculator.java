@@ -68,6 +68,22 @@ public class FitnessCalculator {
         return false;
     }
 
+    private static boolean wildCardCheck(double[] rule, double[] dataRule) {
+        int matches = 0;
+        for (int j = 0; j < dataRule.length; j++) {
+            if (dataRule[j] >= rule[0] && dataRule[j] <= rule[1] || rule[j] == 2) {
+                matches++;
+            } else {
+                matches = 0;
+                break;
+            }
+            if (matches == rule.length) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     static int calculateIndividualFitnessDouble(IndividualDouble individual) {
         FileInputParser fileInputParser = new FileInputParser();
         fileInputParser.parseInputDouble("data3.txt");
@@ -78,7 +94,7 @@ public class FitnessCalculator {
             for (int j = 0; j < rule.rules.length; j++) {
                 for (int i = 0; i < rule.rulesDouble[j].length; i++) {
                     for (int k = 0; k < fileInputParser.conditionDouble.get(x).length; k++) {
-                        if (fileInputParser.conditionDouble.get(x)[k] >= rule.rulesDouble[j][i][0] && fileInputParser.conditionDouble.get(x)[k] <= rule.rulesDouble[j][i][1]) {
+                        if (fileInputParser.conditionDouble.get(x)[k] >= rule.rulesDouble[j][i][0] && fileInputParser.conditionDouble.get(x)[k] <= rule.rulesDouble[j][i][1]) { // || wildCardCheck(rule.rulesDouble[j][i], fileInputParser.conditionDouble.get(x))) {
                             if (rule.answersDouble[j][0][0] == fileInputParser.answersDouble.get(x)[0] && k == fileInputParser.conditionDouble.get(x).length - 1) {
                                 individualFitness++;
                             }
