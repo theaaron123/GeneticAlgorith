@@ -6,8 +6,8 @@ package geneticalgorithm;
 public class GeneticAlgorithm {
 
     private static final double CROSSOVER_RATE = 0.85;
-    private static final double MUTATION_RATE = 0.011;
-    private static final int TOURNAMENT_SIZE = 4;
+    private static final double MUTATION_RATE = 0.017;
+    private static final int TOURNAMENT_SIZE = 8;
     private static final boolean ELITISM = true;
 
     public static Population evolvePopulation(Population population) {
@@ -139,8 +139,10 @@ public class GeneticAlgorithm {
     private static void boxMutate(IndividualDouble individual) {
         for (int i = 0; i < individual.size(); i++) {
             if (Math.random() <= MUTATION_RATE) {
-                individual.getGene(i)[0] = Math.random();
-                individual.getGene(i)[1] = Math.random();
+                double gene1 = Math.random();
+                double gene2 = Math.random();
+                individual.setGene(i, gene1);
+                individual.setGene(i, gene2);
             }
         }
     }
@@ -150,38 +152,54 @@ public class GeneticAlgorithm {
             if (Math.random() <= MUTATION_RATE) {
                 if ((i + 1) % 7 != 0) {
                     if (Math.random() >= 0.5) {
-                        double d = individual.getGene(i)[0] + Math.random() / 10;
-                        double d1 = individual.getGene(i)[1] + Math.random() / 10;
+                        double d = individual.getGene(i) + Math.random() / 10;
+                        double d1 = individual.getGene(i) + Math.random() / 10;
                         if (Math.random() >= 0.5) {
                             if (d <= 1.0) {
-                                individual.getGene(i)[0] = d;
+                                double gene = d;
+                                individual.setGene(i, gene);
                             } else {
-                                individual.getGene(i)[0] = 1;
+                                double gene = 1;
+                                individual.setGene(i, gene);
                             }
                         } else if (d1 <= 1.0) {
-                            individual.getGene(i)[1] = d1;
+                            double gene = d1;
+                            individual.setGene(i, gene);
                         } else {
-                            individual.getGene(i)[1] = 1;
+                            double gene = 1;
+                            individual.setGene(i, gene);
                         }
                     } else {
-                        double d = individual.getGene(i)[0] - Math.random() / 10;
-                        double d1 = individual.getGene(i)[1] - Math.random() / 10;
+                        double d = individual.getGene(i) - Math.random() / 10;
+                        double d1 = individual.getGene(i) - Math.random() / 10;
                         if (Math.random() >= 0.5) {
                             if (d < 0.0) {
-                                individual.getGene(i)[0] = d;
+                                double gene = d;
+                                individual.setGene(i, gene);
+
                             } else {
-                                individual.getGene(i)[0] = 0;
+                                double gene = 0;
+                                individual.setGene(i, gene);
+
                             }
                         } else if (d1 < 0.0) {
-                            individual.getGene(i)[1] = d1;
+                            double gene = d1;
+                            individual.setGene(i, gene);
+
                         } else {
-                            individual.getGene(i)[1] = 0;
+                            double gene = 0;
+                            individual.setGene(i, gene);
+
                         }
                     }
-                } else if (individual.getGene(i)[0] == 0) {
-                    individual.getGene(i)[0] = 1;
+                } else if (individual.getGene(i) == 0) {
+                    double gene = 1;
+                    individual.setGene(i, gene);
+
                 } else {
-                    individual.getGene(i)[0] = 0;
+                    double gene = 0;
+                    individual.setGene(i, gene);
+
                 }
             }
         }

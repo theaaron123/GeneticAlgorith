@@ -18,8 +18,8 @@ public class Rules {
     byte[][] rules = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
     byte[][] answers = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
 
-    double[][][] rulesDouble = new double[individualDouble.size() / 7][][];
-    double[][][] answersDouble = new double[individualDouble.size() / 7][][];
+    double[][] rulesDouble = new double[individualDouble.size() / 7][];
+    double[][] answersDouble = new double[individualDouble.size() / 7][];
 
     public Rules(Individual individual) {
         this.individual = individual;
@@ -63,12 +63,12 @@ public class Rules {
 
     public void splitGenesDouble() {
         int index = 0;
-        for (int i = 0; i < individualDouble.size() / 7; i++) {
-            double[][] rule = new double[6][];
-            double[][] answer = new double[1][];
-            for (int j = 0; j <= 6; j++) {
+        for (int i = 0; i < individualDouble.size() / 13; i++) {
+            double[] rule = new double[12];
+            double[] answer = new double[1];
+            for (int j = 0; j <= 12; j++) {
 
-                if (j <= 5) {
+                if (j <= 11) {
                     rule[j] = individualDouble.getGene(index);
                     index++;
                 } else {

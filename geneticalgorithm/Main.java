@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        PopulationDouble population = new PopulationDouble(25);
+        PopulationDouble population = new PopulationDouble(20);
 
         int iterations = 100;
         int currenIteration = 0;

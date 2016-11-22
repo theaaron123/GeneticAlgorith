@@ -5,8 +5,8 @@ package geneticalgorithm;
  */
 public class IndividualDouble {
 
-    static int geneLength = 140;
-    private double[][] genes = new double[geneLength][2];
+    static int geneLength = 130;
+    private double[] genes = new double[geneLength];
     protected int fitness = 0;
 
     IndividualDouble() {
@@ -19,32 +19,30 @@ public class IndividualDouble {
 
     public void initialiseIndividual() {
         for (int i = 0; i < size(); i++) {
-            for (int j = 0; j < genes[i].length; j++) {
-                if ((i + 1) % 7 == 0) {
+            if ((i + 1) % 13 == 0) {
                     double gene = Math.round(Math.random());
-                    genes[i][j] = gene;
+                genes[i] = gene;
                 } else {
                     double gene = Math.random();
-                    genes[i][j] = gene;
+                genes[i] = gene;
                 }
             }
-        }
     }
 
-    public double[] getGene(int index) {
+    public double getGene(int index) {
         return genes[index];
     }
 
-    public double[][] getGenes() {
+    public double[] getGenes() {
         return this.genes;
     }
 
 
-    public void setGenes(double[][] genes) {
+    public void setGenes(double[] genes) {
         this.genes = genes;
     }
 
-    public void setGene(int index, double[] gene) {
+    public void setGene(int index, double gene) {
         this.genes[index] = gene;
     }
 
