@@ -54,6 +54,7 @@ public class PopulationDouble {
     }
 
     public void saveIndividual(int index, IndividualDouble individual) {
-        individuals[index] = individual;
+
+        individuals[index] = new IndividualDouble(individual);
     }
 }

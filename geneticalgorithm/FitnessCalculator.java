@@ -17,6 +17,18 @@ public class FitnessCalculator {
         return fitness;
     }
 
+    static int calculateIndividualFitness(IndividualDouble individual) {
+        int fitness = 0;
+        for (int i = 0; i < individual.size(); i++) {
+            for (int k = 0; i < individual.getGene(i).length; i++) {
+                if (individual.getGene(i)[k] == 1.0) {
+                    fitness++;
+                }
+            }
+        }
+        return fitness;
+    }
+
     static int calculatePopulationFitness(Population population) {
         int populationFitness = 0;
         for (int i = 0; i < population.size(); i++) {
@@ -92,10 +104,17 @@ public class FitnessCalculator {
         Rules rule = new Rules(individual);
         for (int x = 0; x < fileInputParser.answersDouble.size(); x++) {
             for (int j = 0; j < rule.rules.length; j++) {
-                for (int i = 0; i < rule.rulesDouble[j].length; i++) {
-                    for (int k = 0; k < fileInputParser.conditionDouble.get(x).length; k++) {
-                        if (fileInputParser.conditionDouble.get(x)[k] >= rule.rulesDouble[j][i][0] && fileInputParser.conditionDouble.get(x)[k] <= rule.rulesDouble[j][i][1]) { // || wildCardCheck(rule.rulesDouble[j][i], fileInputParser.conditionDouble.get(x))) {
-                            if (rule.answersDouble[j][0][0] == fileInputParser.answersDouble.get(x)[0] && k == fileInputParser.conditionDouble.get(x).length - 1) {
+                for (int k = 0; k < fileInputParser.conditionDouble.get(x).length; k++) {
+                    for (int i = 0; i < rule.rulesDouble[j].length; i++) {
+                        if (rule.rulesDouble[j][i][0] < rule.rulesDouble[j][i][1]) {
+                            if (fileInputParser.conditionDouble.get(x)[k] >= rule.rulesDouble[j][i][0] && fileInputParser.conditionDouble.get(x)[k] <= rule.rulesDouble[j][i][1]) { // || wildCardCheck(rule.rulesDouble[j][i], fileInputParser.conditionDouble.get(x))) {
+                                if (rule.answersDouble[j][0][0] == fileInputParser.answersDouble.get(x)[0] && k == fileInputParser.conditionDouble.get(x).length - 1 && i == fileInputParser.conditionDouble.get(x).length - 1) {
+                                    individualFitness++;
+                                }
+                                break;
+                            }
+                        } else if (fileInputParser.conditionDouble.get(x)[k] >= rule.rulesDouble[j][i][1] && fileInputParser.conditionDouble.get(x)[k] <= rule.rulesDouble[j][i][0]) { // || wildCardCheck(rule.rulesDouble[j][i], fileInputParser.conditionDouble.get(x))) {
+                            if (rule.answersDouble[j][0][0] == fileInputParser.answersDouble.get(x)[0] && k == fileInputParser.conditionDouble.get(x).length - 1 && i == fileInputParser.conditionDouble.get(x).length - 1) {
                                 individualFitness++;
                             }
                             break;
