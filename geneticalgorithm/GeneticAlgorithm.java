@@ -8,7 +8,7 @@ import java.util.Random;
 public class GeneticAlgorithm {
 
     private static final double CROSSOVER_RATE = 0.85;
-    private static final double MUTATION_RATE = 0.029;
+    private static final double MUTATION_RATE = 0.018;
     private static final int TOURNAMENT_SIZE = 4;
     private static final boolean ELITISM = true;
 

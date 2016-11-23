@@ -78,6 +78,43 @@ public class FitnessCalculator {
         return false;
     }
 
+    static int calculateIndividualFitnessDoubleTestData(IndividualDouble individual) {
+        FileInputParser fileInputParser = new FileInputParser();
+        fileInputParser.parseInputDouble("test1.txt");
+        int individualFitness = 0;
+
+        Rules rule = new Rules(individual);
+        for (int x = 0; x < fileInputParser.answersDouble.size(); x++) {
+            int matches = 0;
+            for (int j = 0; j < rule.rules.length; j++) {
+                for (int i = 0; i < rule.rulesDouble[j].length; i = i + 2) {
+                    if (rule.rulesDouble[j][i] < rule.rulesDouble[j][i + 1]) {
+                        if (fileInputParser.conditionDouble.get(x)[i / 2] >= rule.rulesDouble[j][i] && fileInputParser.conditionDouble.get(x)[i / 2] <= rule.rulesDouble[j][i + 1]) {
+                            matches++;
+                            if (rule.answersDouble[j][0] == fileInputParser.answersDouble.get(x)[0] && i == 10) {
+                                matches++;
+                                break;
+                            }
+                        }
+                    } else if (fileInputParser.conditionDouble.get(x)[i / 2] >= rule.rulesDouble[j][i + 1] && fileInputParser.conditionDouble.get(x)[i / 2] <= rule.rulesDouble[j][i]) {
+                        matches++;
+                        if (rule.answersDouble[j][0] == fileInputParser.answersDouble.get(x)[0] && i == 10) {
+                            matches++;
+                            break;
+                        }
+                    } else {
+                        break;
+                    }
+                }
+                if (matches == 7) {
+                    individualFitness++;
+                    break;
+                }
+            }
+        }
+        return individualFitness;
+    }
+
     static int calculateIndividualFitnessDouble(IndividualDouble individual) {
         FileInputParser fileInputParser = new FileInputParser();
         fileInputParser.parseInputDouble("data3.txt");
