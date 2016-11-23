@@ -78,22 +78,6 @@ public class FitnessCalculator {
         return false;
     }
 
-    private static boolean wildCardCheck(double[] rule, double[] dataRule) {
-        int matches = 0;
-        for (int j = 0; j < dataRule.length; j++) {
-            if (dataRule[j] >= rule[0] && dataRule[j] <= rule[1] || rule[j] == 2) {
-                matches++;
-            } else {
-                matches = 0;
-                break;
-            }
-            if (matches == rule.length) {
-                return true;
-            }
-        }
-        return false;
-    }
-
     static int calculateIndividualFitnessDouble(IndividualDouble individual) {
         FileInputParser fileInputParser = new FileInputParser();
         fileInputParser.parseInputDouble("data3.txt");
@@ -101,27 +85,29 @@ public class FitnessCalculator {
 
         Rules rule = new Rules(individual);
         for (int x = 0; x < fileInputParser.answersDouble.size(); x++) {
+            int matches = 0;
             for (int j = 0; j < rule.rules.length; j++) {
-                // for (int k = 0; k < fileInputParser.conditionDouble.get(x).length; k++) {
-                for (int i = 0; i < rule.rulesDouble[j].length - 1; i = i + 2) {
-                        if (rule.rulesDouble[j][i] < rule.rulesDouble[j][i + 1]) {
-                            if (fileInputParser.conditionDouble.get(x)[i / 2] >= rule.rulesDouble[j][i] && fileInputParser.conditionDouble.get(x)[i / 2] <= rule.rulesDouble[j][i + 1]) { // || wildCardCheck(rule.rulesDouble[j][i], fileInputParser.conditionDouble.get(x))) {
-                                if (rule.answersDouble[j][0] == fileInputParser.answersDouble.get(x)[0] && i == 10) { // && k == fileInputParser.conditionDouble.get(x).length - 1 && i == fileInputParser.conditionDouble.get(x).length) {
-                                    individualFitness++;
-                                    j++;
-                                    break;
-                                } else if (fileInputParser.conditionDouble.get(x)[i / 2] >= rule.rulesDouble[j][i + 1] && fileInputParser.conditionDouble.get(x)[i / 2] <= rule.rulesDouble[j][i]) { // || wildCardCheck(rule.rulesDouble[j][i], fileInputParser.conditionDouble.get(x))) {
-                                    if (rule.answersDouble[j][0] == fileInputParser.answersDouble.get(x)[0] && i == 10) { // && k == fileInputParser.conditionDouble.get(x).length - 1 && i == fileInputParser.conditionDouble.get(x).length) {
-                                        individualFitness++;
-                                        j++;
-                                    }
-                                    break;
-                                }
+                for (int i = 0; i < rule.rulesDouble[j].length; i = i + 2) {
+                    if (rule.rulesDouble[j][i] < rule.rulesDouble[j][i + 1]) {
+                        if (fileInputParser.conditionDouble.get(x)[i / 2] >= rule.rulesDouble[j][i] && fileInputParser.conditionDouble.get(x)[i / 2] <= rule.rulesDouble[j][i + 1]) {
+                            matches++;
+                            if (rule.answersDouble[j][0] == fileInputParser.answersDouble.get(x)[0] && i == 10) {
+                                matches++;
                                 break;
+                            } else if (fileInputParser.conditionDouble.get(x)[i / 2] >= rule.rulesDouble[j][i + 1] && fileInputParser.conditionDouble.get(x)[i / 2] <= rule.rulesDouble[j][i]) {
+                                matches++;
+                                if (rule.answersDouble[j][0] == fileInputParser.answersDouble.get(x)[0] && i == 10) {
+                                    matches++;
+                                }
                             }
+                            break;
                         }
                     }
-                //}
+                    if (matches == 7) {
+                        individualFitness++;
+                        break;
+                    }
+                }
             }
         }
         return individualFitness;

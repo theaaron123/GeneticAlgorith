@@ -25,6 +25,12 @@ public class PopulationDouble {
         return FitnessCalculator.calculateRuleFitnessDouble(this);
     }
 
+    public void evalFitness() {
+        for (int i = 0; i < size(); i++) {
+            individuals[i].fitness = individuals[i].evalFitness();
+        }
+    }
+
     public IndividualDouble getFittest() {
         IndividualDouble fittest = new IndividualDouble();
         fittest.initialiseIndividual();

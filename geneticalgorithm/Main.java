@@ -9,24 +9,20 @@ public class Main {
 
     public static void main(String[] args) {
 
-        for (int y = 0; y < 5; y++) {
+        PopulationDouble population = new PopulationDouble(200);
 
-            PopulationDouble population = new PopulationDouble(10);
+        int iterations = 100;
+        int currenIteration = 0;
 
-            int iterations = 100;
-
-
-            int currenIteration = 0;
-            for (int i = 0; i < iterations; i++) {
-                currenIteration++;
-                System.out.println("Iterations: " + currenIteration + " Fittest: " + population.getFittest().getFitness() + " Mean: " + population.getPopulationFitness());
-                try (PrintWriter out = new PrintWriter(new FileOutputStream(new File("results.csv"), true))) {
-                    out.println(currenIteration + "," + (population.getFittest().getFitness()) + "," + population.getPopulationFitness() + ",");
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
-                population = GeneticAlgorithm.evolvePopulation(population);
+        for (int i = 0; i < iterations; i++) {
+            currenIteration++;
+            System.out.println("Iterations: " + currenIteration + " Fittest: " + population.getFittest().getFitness() + " Mean: " + population.getPopulationFitness());
+            try (PrintWriter out = new PrintWriter(new FileOutputStream(new File("results.csv"), true))) {
+                out.println(currenIteration + "," + (population.getFittest().getFitness()) + "," + population.getPopulationFitness() + ",");
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
             }
+            population = GeneticAlgorithm.evolvePopulation(population);
         }
     }
 }

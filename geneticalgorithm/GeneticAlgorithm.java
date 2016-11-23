@@ -1,13 +1,16 @@
 package geneticalgorithm;
 
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * Created by aaron on 05/11/16.
  */
 public class GeneticAlgorithm {
 
     private static final double CROSSOVER_RATE = 0.85;
-    private static final double MUTATION_RATE = 0.013;
-    private static final int TOURNAMENT_SIZE = 4;
+    private static final double MUTATION_RATE = 0.035;
+    private static final int TOURNAMENT_SIZE = 2;
     private static final boolean ELITISM = true;
 
     public static Population evolvePopulation(Population population) {
@@ -33,6 +36,7 @@ public class GeneticAlgorithm {
 
     public static PopulationDouble evolvePopulation(PopulationDouble population) {
         PopulationDouble newPopulation = new PopulationDouble(population.size());
+        population.evalFitness();
 
         for (int i = 0; i < population.size(); i++) {
             IndividualDouble individualOne = tournamentSelection(population);
@@ -86,6 +90,30 @@ public class GeneticAlgorithm {
             } else {
                 child.setGene(i, individualTwo.getGene(i));
             }
+        }
+        return child;
+    }
+
+    public static IndividualDouble crossoverBLXAlpha(IndividualDouble individualOne, IndividualDouble individualTwo) {
+        IndividualDouble child = new IndividualDouble();
+        int crossOverPoint = (int) (Math.random() * individualOne.size());
+        if (Math.random() > 0) {
+            for (int i = 0; i < individualOne.size(); i++) {
+                if (i <= crossOverPoint) {
+                    double gene1 = individualOne.getGene(i);
+                    double gene2 = individualTwo.getGene(i);
+                    Random r = new Random();
+                    double childGene = 0;
+                    if (gene1 < gene2) {
+                        childGene = gene1 + (gene2 - gene1) * r.nextDouble();
+                    } else {
+                        childGene = gene2 + (gene1 - gene2) * r.nextDouble();
+                    }
+                    child.setGene(i, childGene);
+                }
+            }
+        } else {
+            return crossoverSinglePoint(individualOne, individualTwo);
         }
         return child;
     }
@@ -167,7 +195,6 @@ public class GeneticAlgorithm {
                 if ((i + 1) % 7 != 0) {
                     if (Math.random() >= 0.5) {
                         double d = individual.getGene(i) + Math.random() / 10;
-                        double d1 = individual.getGene(i) + Math.random() / 10;
                         if (Math.random() >= 0.5) {
                             if (d <= 1.0) {
                                 double gene = d;
@@ -176,16 +203,12 @@ public class GeneticAlgorithm {
                                 double gene = 1;
                                 individual.setGene(i, gene);
                             }
-                        } else if (d1 <= 1.0) {
-                            double gene = d1;
-                            individual.setGene(i, gene);
                         } else {
-                            double gene = 1;
+                            double gene = 2;
                             individual.setGene(i, gene);
                         }
                     } else {
                         double d = individual.getGene(i) - Math.random() / 10;
-                        double d1 = individual.getGene(i) - Math.random() / 10;
                         if (Math.random() >= 0.5) {
                             if (d < 0.0) {
                                 double gene = d;
@@ -194,16 +217,10 @@ public class GeneticAlgorithm {
                             } else {
                                 double gene = 0;
                                 individual.setGene(i, gene);
-
                             }
-                        } else if (d1 < 0.0) {
-                            double gene = d1;
-                            individual.setGene(i, gene);
-
                         } else {
-                            double gene = 0;
+                            double gene = 2;
                             individual.setGene(i, gene);
-
                         }
                     }
                 } else if (individual.getGene(i) == 0) {

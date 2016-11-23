@@ -20,13 +20,17 @@ public class IndividualDouble {
     public void initialiseIndividual() {
         for (int i = 0; i < size(); i++) {
             if ((i + 1) % 13 == 0) {
-                    double gene = Math.round(Math.random());
-                genes[i] = gene;
-                } else {
-                    double gene = Math.random();
-                genes[i] = gene;
+                if (Math.random() > 0.96) {
+                    double gene = 2;
+                    genes[i] = gene;
                 }
+                double gene = Math.round(Math.random());
+                genes[i] = gene;
+            } else {
+                double gene = Math.random();
+                genes[i] = gene;
             }
+        }
     }
 
     public double getGene(int index) {
@@ -50,8 +54,12 @@ public class IndividualDouble {
         return genes.length;
     }
 
-    public int getFitness() {
+    public int evalFitness() {
         return FitnessCalculator.calculateIndividualFitnessDouble(this);
+    }
+
+    public int getFitness() {
+        return this.fitness;
     }
 
     public void setFitness(int fitness) {
