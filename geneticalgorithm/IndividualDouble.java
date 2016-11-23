@@ -20,10 +20,6 @@ public class IndividualDouble {
     public void initialiseIndividual() {
         for (int i = 0; i < size(); i++) {
             if ((i + 1) % 13 == 0) {
-                if (Math.random() > 0.96) {
-                    double gene = 2;
-                    genes[i] = gene;
-                }
                 double gene = Math.round(Math.random());
                 genes[i] = gene;
             } else {

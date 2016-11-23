@@ -1,7 +1,6 @@
 package geneticalgorithm;
 
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by aaron on 05/11/16.
@@ -9,8 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 public class GeneticAlgorithm {
 
     private static final double CROSSOVER_RATE = 0.85;
-    private static final double MUTATION_RATE = 0.035;
-    private static final int TOURNAMENT_SIZE = 2;
+    private static final double MUTATION_RATE = 0.029;
+    private static final int TOURNAMENT_SIZE = 4;
     private static final boolean ELITISM = true;
 
     public static Population evolvePopulation(Population population) {
@@ -97,7 +96,6 @@ public class GeneticAlgorithm {
     public static IndividualDouble crossoverBLXAlpha(IndividualDouble individualOne, IndividualDouble individualTwo) {
         IndividualDouble child = new IndividualDouble();
         int crossOverPoint = (int) (Math.random() * individualOne.size());
-        if (Math.random() > 0) {
             for (int i = 0; i < individualOne.size(); i++) {
                 if (i <= crossOverPoint) {
                     double gene1 = individualOne.getGene(i);
@@ -106,15 +104,18 @@ public class GeneticAlgorithm {
                     double childGene = 0;
                     if (gene1 < gene2) {
                         childGene = gene1 + (gene2 - gene1) * r.nextDouble();
+                        if (childGene > 1) {
+                            childGene = 1;
+                        }
                     } else {
                         childGene = gene2 + (gene1 - gene2) * r.nextDouble();
+                        if (childGene < 0) {
+                            childGene = 0;
+                        }
                     }
                     child.setGene(i, childGene);
                 }
             }
-        } else {
-            return crossoverSinglePoint(individualOne, individualTwo);
-        }
         return child;
     }
 

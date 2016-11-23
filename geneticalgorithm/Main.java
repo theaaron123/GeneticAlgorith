@@ -9,9 +9,9 @@ public class Main {
 
     public static void main(String[] args) {
 
-        PopulationDouble population = new PopulationDouble(200);
+        PopulationDouble population = new PopulationDouble(100);
 
-        int iterations = 100;
+        int iterations = 200;
         int currenIteration = 0;
 
         for (int i = 0; i < iterations; i++) {

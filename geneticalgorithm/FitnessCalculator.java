@@ -94,19 +94,21 @@ public class FitnessCalculator {
                             if (rule.answersDouble[j][0] == fileInputParser.answersDouble.get(x)[0] && i == 10) {
                                 matches++;
                                 break;
-                            } else if (fileInputParser.conditionDouble.get(x)[i / 2] >= rule.rulesDouble[j][i + 1] && fileInputParser.conditionDouble.get(x)[i / 2] <= rule.rulesDouble[j][i]) {
-                                matches++;
-                                if (rule.answersDouble[j][0] == fileInputParser.answersDouble.get(x)[0] && i == 10) {
-                                    matches++;
-                                }
                             }
+                        }
+                    } else if (fileInputParser.conditionDouble.get(x)[i / 2] >= rule.rulesDouble[j][i + 1] && fileInputParser.conditionDouble.get(x)[i / 2] <= rule.rulesDouble[j][i]) {
+                        matches++;
+                        if (rule.answersDouble[j][0] == fileInputParser.answersDouble.get(x)[0] && i == 10) {
+                            matches++;
                             break;
                         }
-                    }
-                    if (matches == 7) {
-                        individualFitness++;
+                    } else {
                         break;
                     }
+                }
+                if (matches == 7) {
+                    individualFitness++;
+                    break;
                 }
             }
         }
