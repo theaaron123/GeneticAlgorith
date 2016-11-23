@@ -5,7 +5,7 @@ package geneticalgorithm;
  */
 public class Individual {
 
-    static int geneLength = 70;
+    static int geneLength = 35;
     private byte[] genes = new byte[geneLength];
     private int fitness = 0;
 
