@@ -14,14 +14,23 @@ public class Rules {
     private static final int ANSWER_LENGTH = 1;
 
     Individual individual = new Individual();
+    IndividualDouble individualDouble = new IndividualDouble();
     byte[][] rules = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
     byte[][] answers = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
+
+    double[][] rulesDouble = new double[individualDouble.size() / 7][];
+    double[][] answersDouble = new double[individualDouble.size() / 7][];
 
     public Rules(Individual individual) {
         this.individual = individual;
         rules = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
         answers = new byte[individual.size() / (RULE_LENGTH + ANSWER_LENGTH)][];
         splitGenes();
+    }
+
+    public Rules(IndividualDouble individualDouble) {
+        this.individualDouble = individualDouble;
+        splitGenesDouble();
     }
 
     public byte[][] getRules() {
@@ -49,6 +58,26 @@ public class Rules {
                 }
             }
             rules[i] = rule;
+        }
+    }
+
+    public void splitGenesDouble() {
+        int index = 0;
+        for (int i = 0; i < individualDouble.size() / 13; i++) {
+            double[] rule = new double[12];
+            double[] answer = new double[1];
+            for (int j = 0; j <= 12; j++) {
+
+                if (j <= 11) {
+                    rule[j] = individualDouble.getGene(index);
+                    index++;
+                } else {
+                    answer[0] = individualDouble.getGene(index);
+                    index++;
+                }
+                answersDouble[i] = answer;
+                rulesDouble[i] = rule;
+            }
         }
     }
 }

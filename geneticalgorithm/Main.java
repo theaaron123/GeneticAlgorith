@@ -9,7 +9,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        Population population = new Population(50);
+        PopulationDouble population = new PopulationDouble(100);
 
         int iterations = 100;
         int currenIteration = 0;
@@ -24,5 +24,9 @@ public class Main {
             }
             population = GeneticAlgorithm.evolvePopulation(population);
         }
+
+        int testFitness = FitnessCalculator.calculateRuleFitnessDouble(population);
+
+        System.out.println("TEST DATA = " + testFitness);
     }
 }
